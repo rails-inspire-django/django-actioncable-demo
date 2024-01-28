@@ -1,0 +1,2 @@
+django-actioncable==1.0.4
+Django==5.0.1

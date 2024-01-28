@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ActionCable Example</title>
+</head>
+<body>
+<div id="messages"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@rails/actioncable@7.1.2/app/assets/javascripts/actioncable.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Create a consumer object to connect to the ActionCable server
+    const cable = ActionCable.createConsumer();
+
+    // Define a channel and its corresponding functions
+    const channel = cable.subscriptions.create({channel: "ChatChannel", pk: "1"}, {
+      connected() {
+        console.log("Connected to the chat channel.");
+      },
+
+      disconnected() {
+        console.log("Disconnected from the chat channel.");
+      },
+
+      received(data) {
+        // Display the received message
+        const messagesDiv = document.getElementById("messages");
+        const messageDiv = document.createElement("div");
+        messageDiv.innerText = data;
+        messagesDiv.appendChild(messageDiv);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
